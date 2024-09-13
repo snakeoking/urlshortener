@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitly
+        URL Shortener</title>
+        <link rel="stylesheet" href="{% static 'URLShortner.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Bitly</h1>
+        <h2>A URL Shortner</h2>
+        <form action="{% url 'shorten_url' %}" method="POST">
+            {% csrf_token %}
+        <input type="url" id="longUrl" placeholder="Enter long URL" name="orignal_url" required>
+        <button id="shortenBtn" type="submit">Shorten URL</button>
+        </form>
+        <p class="boxtextcenter">
+            BitlyURL is a free tool to shorten URLs and generate short links
+            <br>
+            <br>
+            URL shortener allows to create a shortened link making it easy to share
+        </p>
+        {% if short_url %}
+        <p id="shortUrl">
+            <a href="{{ short_url }}"target="_blank">{{ short_url }}</a>
+        </p>
+        {% endif %}
+    </div>
+</body>
+</html>

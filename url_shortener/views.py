@@ -5,7 +5,7 @@ import random
 import string
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'URLShortner.html')
 
 def shorten_url(request):
     if request.method == 'POST':
@@ -15,13 +15,13 @@ def shorten_url(request):
         existing_url = URL.objects.filter(orignal_url=orignal_url).first()
         if existing_url:
             short_url = request.build_absolute_uri('/') + existing_url.short_url
-            return render(request, 'index.html', {'short_url': short_url})
+            return render(request, 'URLShortner.html', {'short_url': short_url})
         
         # If the orignal URL doesn't exist, generate a short code and create a new entry
         short_code = generate_short_code()
         short_url = request.build_absolute_uri('/') + short_code
         URL.objects.create(orignal_url=orignal_url, short_url=short_code)
-        return render(request, 'index.html', {'short_url': short_url})
+        return render(request, 'URLShortner.html', {'short_url': short_url})
     return redirect('index')
 
 def redirect_original_url(request, short_url):
